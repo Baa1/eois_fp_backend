@@ -1,0 +1,11 @@
+{
+    "username": "postgres",
+    "password": "admin",
+    "database": "eois_fp",
+    "host": "localhost",
+    "dialect": "postgres",
+    "define": {
+        "freezeTableName": true
+    }
+}
+  
