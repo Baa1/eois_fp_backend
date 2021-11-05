@@ -1,28 +1,27 @@
 const db = require('../models')
-// const config = require('../config/auth.config')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const { ROLES } = require('../utils/enums')
 const { ForbiddenError, UnauthorizedError, CustomError } = require('../utils/errors')
 
 exports.signUp = async (res, userData) => {
-  await db.transaction(async transaction => {
-    const { email, password } = userData
-    const user = await db.User.create({
-      email: email,
-      password: bcrypt.hashSync(password, 8)
-    }, { transaction })
-    const guestRole = await db.Role.findOne({
-      where: {
-        name: ROLES.Guest
-      }
-    })
-    await db.UserRole.create({
-      userId: user.id,
-      roleId: guestRole.id
-    }, { transaction })
-    res.result = user
-  })
+	await db.transaction(async transaction => {
+		const { email, password } = userData
+		const user = await db.User.create({
+			email,
+			password: bcrypt.hashSync(password, 8)
+		}, { transaction })
+		const guestRole = await db.Role.findOne({
+			where: {
+				name: ROLES.Guest
+			}
+		})
+		await db.UserRole.create({
+			userId: user.id,
+			roleId: guestRole.id
+		}, { transaction })
+		res.result = user
+	})
 }
 
 exports.signIn = async (res, userData) => {

@@ -1,20 +1,20 @@
 const express = require('express')
 const router = express.Router()
-const controller = require('../controllers/auth.controller')
+const { authController } = require('../controllers')
 const { authValidator } = require('../vaildators')
 
 router.post(
     '/signup',
     authValidator.signUp,
-    controller.signUp
+    authController.signUp
 )
 
 router.post(
     '/signin', 
     authValidator.signIn,
-    controller.signIn
+    authController.signIn
 )
 
-router.post('/refreshtoken', controller.refreshToken)
+router.post('/refreshtoken', authController.refreshToken)
 
 module.exports = router 
