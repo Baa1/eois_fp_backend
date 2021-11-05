@@ -3,12 +3,18 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const { ROLES } = require('../utils/enums')
 const { ForbiddenError, UnauthorizedError, CustomError } = require('../utils/errors')
+const { isEmpty } = require('lodash')
 
 exports.signUp = async (res, userData) => {
-	const transaction = await db.transaction()
-	try {
+	await db.transaction(async transaction => {
 		const { email, password } = userData
-		const user = await db.User.create({
+    let user = await db.User.findOne({
+      email
+    })
+    if (!isEmpty(user)) {
+      throw new CustomError('Пользователь с такой почтой уже зарегистрирован')
+    }
+		user = await db.User.create({
 			email,
 			password: bcrypt.hashSync(password, 8)
 		}, { transaction })
@@ -22,31 +28,8 @@ exports.signUp = async (res, userData) => {
 			roleId: guestRole.id
 		}, { transaction })
 		res.result = user
-	} catch (error) {
-		console.log(error.message)
-		throw new CustomError(error.message)
-	}
+	})
 }
-
-// exports.signUp = async (res, userData) => {
-// 	await db.transaction(async transaction => {
-// 		const { email, password } = userData
-// 		const user = await db.User.create({
-// 			email,
-// 			password: bcrypt.hashSync(password, 8)
-// 		}, { transaction })
-// 		const guestRole = await db.Role.findOne({
-// 			where: {
-// 				name: ROLES.Guest
-// 			}
-// 		})
-// 		await db.UserRole.create({
-// 			userId: user.id,
-// 			roleId: guestRole.id
-// 		}, { transaction })
-// 		res.result = user
-// 	})
-// }
 
 exports.signIn = async (res, userData) => {
     try {

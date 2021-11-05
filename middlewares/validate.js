@@ -12,7 +12,7 @@ function ValidationError(fields) {
     else {
       this.stack = (new Error()).stack
     }
-  }
+}
 
 const customValidationResult = validationResult.withDefaults({
     formatter: (error) => {

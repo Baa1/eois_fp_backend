@@ -37,10 +37,10 @@ function ForbiddenError() {
     }
 }
 
-function NotFoundError() {
+function NotFoundError(message) {
     Error.call(this)
     this.name = 'NotFoundError'
-    this.message = 'Объект не найден'
+    this.message = message || 'Объект не найден'
 
     if (Error.captureStackTrace) {
         Error.captureStackTrace(this, NotFoundError)
@@ -67,5 +67,7 @@ function ValidationError(fields) {
 module.exports = {
     CustomError,
     UnauthorizedError,
-    ForbiddenError
+    ForbiddenError,
+    NotFoundError,
+    ValidationError
 }
