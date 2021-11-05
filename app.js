@@ -1,9 +1,10 @@
 const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
-const bcrypt = require('bcryptjs')
 const bodyParser = require('body-parser')
 const { errors } = require('./middlewares')
+
+require('dotenv').config()
 
 const app = express()
 

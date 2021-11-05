@@ -24,10 +24,10 @@ function UnauthorizedError(message) {
     }
 }
 
-function ForbiddenError() {
+function ForbiddenError(message) {
     Error.call(this)
     this.name = 'ForbiddenError'
-    this.message = 'Недостаточно прав'
+    this.message = message || 'Недостаточно прав'
 
     if (Error.captureStackTrace) {
         Error.captureStackTrace(this, ForbiddenError)

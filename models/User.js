@@ -27,6 +27,8 @@ module.exports = (sequelize, Sequelize) => {
 			foreignKey: 'userId',
 			constraints: false
 		})
+
+		User.hasMany(models.RefreshToken, { foreignKey: 'userId' })
 	}
 
 	return User

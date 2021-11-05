@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken')
 const db = require('../models')
-const User = db.user
 
 const { TokenExpiredError } = jwt
 
@@ -13,55 +12,23 @@ const catchError = (err, res) => {
 }
 
 verifyToken = (req, res, next) => {
-    let token = req.headers['x-access-token']
+    let token = req.headers['Authorization'].split(' ')[1]
 
     if (!token) {
         return res.status(403).send({ message: 'No token provided!' })
     }
 
-    // jwt.verify(token, config.secret, (err, decoded) => {
-    //     if (err) {
-    //         return catchError(err, res)
-    //     }
-    //     req.userId = decoded.id
-    //     next()
-    // })
-}
-
-isAdmin = (req, res, next) => {
-    User.findByPk(req.userId).then(user => {
-        user.getRoles().then(roles => {
-            for (let i = 0; i < roles.length; i++) {
-                if (roles[i].name === 'admin') {
-                    next()
-                    return
-                }
-            }
-
-            res.status(403).send({ message: 'Require Admin Role!' })
-            return
-        })
-    })
-}
-
-isCurator = (req, res, next) => {
-    User.findByPk(req.userId).then(user => {
-        user.getRoles().then(roles => {
-            for (let i = 0; i < roles.length; i++) {
-                if (roles[i].name === 'curator') {
-                    next()
-                    return
-                }
-            }
-
-            res.status(403).send({ message: 'Require Curator Role!' })
-        })
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return catchError(err, res)
+        }
+        req.userId = decoded.id
+        next()
     })
 }
 
 const authJwt = {
-    verifyToken,
-    isAdmin,
-    isCurator
+    verifyToken
 }
+
 module.exports = authJwt

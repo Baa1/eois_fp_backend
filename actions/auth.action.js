@@ -3,13 +3,16 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const { ROLES } = require('../utils/enums')
 const { ForbiddenError, UnauthorizedError, CustomError } = require('../utils/errors')
-const { isEmpty } = require('lodash')
+const { isEmpty } = require('../utils/helpers')
 
 exports.signUp = async (res, userData) => {
 	await db.transaction(async transaction => {
 		const { email, password } = userData
+    console.log(userData)
     let user = await db.User.findOne({
-      email
+      where: {
+        email
+      }
     })
     if (!isEmpty(user)) {
       throw new CustomError('Пользователь с такой почтой уже зарегистрирован')
@@ -27,43 +30,44 @@ exports.signUp = async (res, userData) => {
 			userId: user.id,
 			roleId: guestRole.id
 		}, { transaction })
-		res.result = user
+		res.result = {
+      userId: user.id,
+      email: user.email,
+      roles: [
+        {
+          id: guestRole.id,
+          name: guestRole.name
+        }
+      ]
+    }
 	})
 }
 
 exports.signIn = async (res, userData) => {
-    try {
-      const { email, password } = userData
-      let user = await db.User.findOne({ where: { email } })
-      if (!user) {
-        throw new UnauthorizedError('Пользователь с таким логином/паролем не найден')
-      }
-      const passwordIsValid = bcrypt.compareSync(
-        password,
-        user.password
-      )
-      if (!passwordIsValid) {
-        throw new UnauthorizedError('Неверный пароль')
-      }
-      // const token = jwt.sign({ id: user.id }, config.secret, {
-      //   expiresIn: config.jwtExpiration
-      // })
-      let refreshToken = await db.RefreshToken.createToken(user)
-      const authorities = []
-      const roles = await user.getRoles()
-      for (let i = 0; i < roles.length; i++) {
-        authorities.push('ROLE_' + roles[i].name.toUpperCase())
-      }
-      res.result = {
-        id: user.id,
-        email: user.username,
-        roles: authorities,
-        accessToken: token,
-        refreshToken: refreshToken
-      }
-    } catch (error) {
-      throw new CustomError()
+  await db.transaction(async transaction => {
+    const { email, password } = userData
+    const user = await db.User.findOne({ where: { email } })
+    if (isEmpty(user)) {
+      throw new UnauthorizedError('Пользователь с таким email не найден')
     }
+    const passwordIsValid = bcrypt.compareSync(
+      password,
+      user.password
+    )
+    if (!passwordIsValid) {
+      throw new UnauthorizedError('Неверный пароль')
+    }
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.ACCESS_TOKEN_DURATION
+    })
+    const refreshToken = await db.RefreshToken.createToken(user, transaction)
+    res.result = {
+      id: user.id,
+      email: user.username,
+      accessToken: token,
+      refreshToken: refreshToken
+    }
+  })
 }
 
 exports.refreshToken = async (res, requestToken) => {

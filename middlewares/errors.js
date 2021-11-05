@@ -1,6 +1,4 @@
-
 const Result = require('../utils/result')
-const { ValidationError, CustomError, UnauthorizedError, ForbiddenError } = require('../utils/errors')
 
 const errorHandler = (error, req, res, next) => {
   let result = new Result()
@@ -41,5 +39,5 @@ const errorHandler = (error, req, res, next) => {
 }
 
 module.exports = {
-    errorHandler
+  errorHandler
 }
