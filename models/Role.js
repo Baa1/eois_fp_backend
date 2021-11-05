@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Role = sequelize.define('roles', {
+    const Role = sequelize.define('Role', {
         id: {
             type: Sequelize.SMALLINT,
             primaryKey: true,
@@ -11,7 +11,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             unique: true
         }
-    }, { timestamps: false })
+    }, { timestamps: false, freezeTableName: true })
 
     Role.associate = models => {  
         Role.belongsToMany(models.User, {

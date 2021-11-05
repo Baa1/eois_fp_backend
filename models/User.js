@@ -15,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.STRING(100),
 			allowNull: false
 		}
-	}, { timestamps: false })
+	}, { timestamps: false, freezeTableName: true })
 
 	User.associate = models => {
 		User.belongsToMany(models.Role, {

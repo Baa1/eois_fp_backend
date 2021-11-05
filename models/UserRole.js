@@ -8,13 +8,19 @@ module.exports = (sequelize, Sequelize) => {
         },
         userId: {
             type: Sequelize.INTEGER,
-            allowNull: false
+            references: {
+              model: 'User',
+              key: 'id'
+            }
         },
         roleId: {
             type: Sequelize.SMALLINT,
-            allowNull: false
+            references: {
+              model: 'Role',
+              key: 'id'
+            }
         }        
-    }, { timestamps: false })
+    }, { timestamps: false, freezeTableName: true })
   
     return UserRole
 }
