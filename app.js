@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const { errors } = require('./middlewares')
 
 require('dotenv').config()
+require('./services/authGoogle')
 
 const app = express()
 
