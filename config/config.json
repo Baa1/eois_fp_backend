@@ -4,6 +4,12 @@
     "database": "d95t4cere37ej3",
     "host": "ec2-54-160-35-196.compute-1.amazonaws.com",
     "dialect": "postgres",
+    "dialectOptions": {
+        "ssl": {
+          "require": true,
+          "rejectUnauthorized": false
+        }
+    },
     "define": {
         "freezeTableName": true
     }
