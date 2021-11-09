@@ -16,6 +16,13 @@ router.post(
     authController.signIn
 )
 
+router.get(
+    '/test',
+    (req, res) => {
+        res.send(req.query)
+    }
+)
+
 router.post('/refreshtoken', authController.refreshToken)
 
 router.get('/google', passport.authenticate('google', { scope: ['email', 'profile'] }))
