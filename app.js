@@ -5,7 +5,6 @@ const bodyParser = require('body-parser')
 const { errors } = require('./middlewares')
 
 require('dotenv').config()
-require('./services/authGoogle')
 
 const app = express()
 
@@ -22,6 +21,13 @@ app.use(function(req, res, next) {
 })
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    res.header('Access-Control-Allow-Headers', '*')
+    next()
+})
 
 const mountRoutes = require('./routes')
 
