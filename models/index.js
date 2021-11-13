@@ -1,5 +1,20 @@
-const config = require('../config/config.json')
+const path = require('path')
 const { Sequelize, QueryTypes, Transaction } = require('sequelize')
+
+const env = process.env.NODE_ENV || 'development'
+const config = require(path.join(__dirname + '/../config/config.json'))[env]
+let dialectOptions
+if (env == 'development') {
+  dialectOptions = null
+} else {
+  dialectOptions= {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  }
+}
+ 
 
 const sequelize = new Sequelize(
   config.database,
@@ -8,12 +23,7 @@ const sequelize = new Sequelize(
   {
     host: config.host,
     dialect: config.dialect,
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false
-      }
-    }
+    dialectOptions: dialectOptions
   }
 )
 
