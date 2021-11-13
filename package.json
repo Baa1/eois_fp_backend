@@ -33,6 +33,7 @@
     "sequelize-cli": "^6.3.0"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "nodemon": "^2.0.12"
   }
 }
