@@ -1,5 +1,8 @@
-const config = require('../config/config.json')
+const path = require('path')
 const { Sequelize, QueryTypes, Transaction } = require('sequelize')
+
+const env = process.env.NODE_ENV || 'development'
+const config = require(path.join(__dirname + '/../config/config.json'))[env]
 
 const sequelize = new Sequelize(
   config.database,
