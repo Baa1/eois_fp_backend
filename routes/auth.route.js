@@ -3,6 +3,7 @@ const passport = require('passport')
 const router = express.Router()
 const { authController } = require('../controllers')
 const { authValidator } = require('../vaildators')
+const { sendEmail } = require('../services/emailService')
 
 router.post(
     '/signup',
@@ -19,12 +20,11 @@ router.post(
 router.get(
     '/test',
     (req, res) => {
+        sendEmail('baa1_666@mail.ru', 'hi', req.query.text)
         res.send(req.query)
     }
 )
 
 router.post('/refreshtoken', authController.refreshToken)
-
-router.get('/google', passport.authenticate('google', { scope: ['email', 'profile'] }))
 
 module.exports = router 

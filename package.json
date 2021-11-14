@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www",
-    "migration:add": "npx sequelize-cli migration:create --name",
-    "migrate": "npx sequelize-cli db:migrate",
-    "migration:undo": "npx sequelize-cli db:migrate:undo"
+    "dev": "cross-env NODE_ENV=development nodemon ./bin/www",
+    "heroku": "cross-env NODE_ENV=heroku nodemon ./bin/www",
+    "migration:add": "cross-env MIG_ENV=development npx sequelize-cli migration:create --name",
+    "migrate": "cross-env MIG_ENV=development npx sequelize-cli db:migrate",
+    "migrate:heroku": "cross-env MIG_ENV=heroku npx sequelize-cli db:migrate",
+    "migration:undo": "cross-env MIG_ENV=development npx sequelize-cli db:migrate:undo",
+    "migration:undo:heroku": "cross-env MIG_ENV=heroku npx sequelize-cli db:migrate:undo"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -30,6 +33,7 @@
     "sequelize-cli": "^6.3.0"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "nodemon": "^2.0.12"
   }
 }
