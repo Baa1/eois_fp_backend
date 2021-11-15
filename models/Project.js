@@ -11,43 +11,43 @@ module.exports = (sequelize, Sequelize) => {
 			allowNull: false,
 			unique: true
 		},
-		discription: {
-			type: Sequelize.STRING(200),
+		description: {
+			type: Sequelize.TEXT,
 			allowNull: false
 		},
-        user_id: {
-            allowNull: false,
-            primaryKey: true,
-            type: Sequelize.INTEGER
+        creatorId: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: 'User',
+                key: 'id'
+            }
         },
         status: {
             allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-            type: Sequelize.BOOLEAN
+            type: Sequelize.STRING
         },
-        like: {
+        likes: {
             allowNull: true,
             type: Sequelize.INTEGER
         },
-        dislike: {
+        dislikes: {
             allowNull: true,
             type: Sequelize.INTEGER
         }
 	}, { timestamps: false, freezeTableName: true })
 
     Project.associate = models => {
-		Project.belongsToMany(models.Role, {
-			as: 'roles',
-			through: {
-				model: models.UserRole,
-				unique: false
-			},
-			foreignKey: 'userId',
-			constraints: false
-		})
+		// Project.belongsToMany(models.Role, {
+		// 	as: 'roles',
+		// 	through: {
+		// 		model: models.UserRole,
+		// 		unique: false
+		// 	},
+		// 	foreignKey: 'userId',
+		// 	constraints: false
+		// })
 
-		User.hasMany(models.RefreshToken, { foreignKey: 'userId' })
+		// User.hasMany(models.RefreshToken, { foreignKey: 'userId' })
 	}
 
 	return Project
