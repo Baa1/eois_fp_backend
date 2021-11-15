@@ -11,3 +11,7 @@ exports.getSessions = () => {
 exports.getSession = () => {
     
 }
+
+exports.addProject = (res, projectData) => {
+
+}
