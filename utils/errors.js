@@ -50,6 +50,19 @@ function NotFoundError(message) {
     }
 }
 
+function ConflictError(message) {
+    Error.call(this, message)
+    this.name = 'ConflictError'
+    this.message = message || 'Конфликт ресурсов'
+
+    if (Error.captureStackTrace) {
+        Error.captureStackTrace(this, ConflictError)
+    }
+    else {
+        this.stack = (new Error()).stack
+    }
+}
+
 function ValidationError(fields) {
     Error.call(this, fields)
     this.name = 'ValidationError'
@@ -69,5 +82,6 @@ module.exports = {
     UnauthorizedError,
     ForbiddenError,
     NotFoundError,
-    ValidationError
+    ValidationError,
+    ConflictError
 }
