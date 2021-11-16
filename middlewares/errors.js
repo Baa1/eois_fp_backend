@@ -23,6 +23,12 @@ const errorHandler = (error, req, res, next) => {
           result.setErrorMessage(error.message)
         }
         break
+      case 'ConflictError':
+        result.setConflict()
+        if (error.message) {
+          result.setErrorMessage(error.message)
+        }
+        break
       case 'ValidationError':
         result.setUnprocessable()
         result.setError({ fields: error.fields })
