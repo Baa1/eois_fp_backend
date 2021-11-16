@@ -25,19 +25,16 @@ exports.getSession = async (res, sessionId) => {
     res.result = session
 }
 
-exports.addProject = (res, projectData) => {
-await db.transaction(async transaction => {
+exports.addProject = async (res, projectData) => {
+    await db.transaction(async transaction => {
 		const { name, description } = projectData
-    console.log(userData)
-    
-	project = await db.Project.create({
-		name,
-		description
-	}, { transaction })
-		
-	res.result = {
-		nmae: project.name,
-		description: project.description
-    }
+        console.log(projectData)
+        
+        project = await db.Project.create({
+            name,
+            description
+        }, { transaction })
+            
+        res.result = project
 	})
 }

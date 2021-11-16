@@ -11,6 +11,7 @@ router.post(
 router.get(
     '/session/:id',
     adminController.getSession
+)
 
 router.post(
     '/project',
