@@ -27,12 +27,13 @@ exports.getSession = async (res, sessionId) => {
 
 exports.addProject = async (res, projectData) => {
     await db.transaction(async transaction => {
-		const { name, description } = projectData
+		const { name, description, status } = projectData
         console.log(projectData)
         
         project = await db.Project.create({
             name,
-            description
+            description,
+            status
         }, { transaction })
             
         res.result = project
