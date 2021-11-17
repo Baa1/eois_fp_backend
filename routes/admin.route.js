@@ -3,28 +3,19 @@ const router = express.Router()
 const { authJwt } = require('../middlewares')
 const { adminController } = require('../controllers')
 
-router.get(
-    '/sessions',
-    [authJwt.verifyToken],
-    adminController.getAllSessions
-)
-
 router.post(
     '/session',
-    [authJwt.verifyToken],
     adminController.addSession
 )
 
-router.put(
+router.get(
     '/session/:id',
-    [authJwt.verifyToken],
-    adminController.updateSession
+    adminController.getSession
 )
 
-router.get(
-    'session/:id',
-    [authJwt.verifyToken],
-    adminController.getSession
+router.post(
+    '/project',
+    adminController.addProject
 )
 
 module.exports = router
