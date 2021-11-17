@@ -37,17 +37,17 @@ module.exports = (sequelize, Sequelize) => {
 	}, { timestamps: false, freezeTableName: true })
 
     Project.associate = models => {
-		// Project.belongsToMany(models.Role, {
-		// 	as: 'roles',
-		// 	through: {
-		// 		model: models.UserRole,
-		// 		unique: false
-		// 	},
-		// 	foreignKey: 'userId',
-		// 	constraints: false
-		// })
+		Project.belongsToMany(models.Session, {
+			as: 'session',
+			through: {
+				model: models.ProjectSession,
+				unique: false
+			},
+			foreignKey: 'projectId',
+			constraints: false
+		})
 
-		// User.hasMany(models.RefreshToken, { foreignKey: 'userId' })
+		Project.hasMany(models.RefreshToken, { foreignKey: 'projectId' })
 	}
 
 	return Project
