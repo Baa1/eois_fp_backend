@@ -30,7 +30,7 @@ exports.addProject = async (res, projectData) => {
 		const { name, description, status } = projectData
         console.log(projectData)
         
-        project = await db.Project.create({
+        const project = await db.Project.create({
             name,
             description,
             status
