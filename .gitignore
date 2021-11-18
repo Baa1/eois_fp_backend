@@ -71,6 +71,3 @@ typings/
 
 # FuseBox cache
 .fusebox/
-
-# configs
-/config/config.json
