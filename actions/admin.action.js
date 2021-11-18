@@ -5,8 +5,7 @@ const { ConflictError } = require('../utils/errors')
 exports.addSession = async (res, sessionData) => {
     await db.transaction(async transaction => {
         const { dateStart, dateEnd, place, description } = sessionData
-        console.log(1)
-        if (moment(dateStart) < moment(dateEnd)) {
+        if (moment(dateStart) > moment(dateEnd)) {
             throw new ConflictError('Дата начала сессии не может быть позже даты окончания!')
         }
         console.log(2)
