@@ -20,3 +20,12 @@ exports.dataToJson = data => {
         return data.toJson()
     }
 }
+
+exports.generateRandomCode = length => {
+    let possible = '0123456789'
+    let string = ''
+    for (let i = 0; i < length; i++) {
+      string += possible.charAt(Math.floor(Math.random() * possible.length))
+    }
+    return string
+}

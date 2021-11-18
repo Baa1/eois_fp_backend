@@ -11,10 +11,16 @@ router.post(
 router.get(
     '/session/:id',
     adminController.getSession
+)
 
 router.post(
     '/project',
     adminController.addProject
+)
+
+router.get(
+    '/project/:id',
+    adminController.getProject
 )
 
 module.exports = router
