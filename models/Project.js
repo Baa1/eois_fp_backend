@@ -46,8 +46,6 @@ module.exports = (sequelize, Sequelize) => {
 			foreignKey: 'projectId',
 			constraints: false
 		})
-
-		Project.hasMany(models.RefreshToken, { foreignKey: 'projectId' })
 	}
 
 	return Project

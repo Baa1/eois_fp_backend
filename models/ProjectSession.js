@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
             }
         },
         sessionId: {
-            type: Sequelize.SMALLINT,
+            type: Sequelize.INTEGER,
             references: {
               model: 'Session',
               key: 'id'
