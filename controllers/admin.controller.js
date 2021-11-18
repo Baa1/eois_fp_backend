@@ -34,7 +34,7 @@ exports.addProject = async (req, res, next) => {
 exports.getProject = async (req, res, next) => {
 	try {
 		let result = new Result()
-		await adminAction.getProject(result, req.body)
+		await adminAction.getProject(result, req.params.id)
 		return res.status(result.status).send(result)
 	} catch (error) {
 		next(error)
