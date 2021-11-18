@@ -18,4 +18,9 @@ router.post(
     adminController.addProject
 )
 
+router.get(
+    '/project/:id',
+    adminController.getProject
+)
+
 module.exports = router

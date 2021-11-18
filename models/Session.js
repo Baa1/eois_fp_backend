@@ -25,7 +25,15 @@ module.exports = (sequelize, Sequelize) => {
 	}, { timestamps: false, freezeTableName: true })
 
 	Session.associate = models => {
-		
+		Session.belongsToMany(models.Project, {
+			as: 'project',
+			through: {
+			  model: models.ProjectSession,
+			  unique: false
+			},
+			foreignKey: 'sessionId',
+			constraints: false
+		  })
 	}
 
 	return Session
