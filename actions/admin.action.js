@@ -8,7 +8,6 @@ exports.addSession = async (res, sessionData) => {
         if (moment(dateStart) > moment(dateEnd)) {
             throw new ConflictError('Дата начала сессии не может быть позже даты окончания!')
         }
-        console.log(2)
         const session = await db.Session.create({
             dateStart: moment(dateStart).format('DD-MM-YYYY'), 
             dateEnd: moment(dateEnd).format('DD-MM-YYYY'), 
@@ -27,7 +26,6 @@ exports.getSession = async (res, sessionId) => {
 exports.addProject = async (res, projectData) => {
     await db.transaction(async transaction => {
 		const { name, description, status } = projectData
-        console.log(projectData)
         
         const project = await db.Project.create({
             name,
