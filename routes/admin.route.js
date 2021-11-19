@@ -23,4 +23,9 @@ router.get(
     adminController.getProject
 )
 
+router.put(
+    '/session/:id',
+    adminController.updateSession
+)
+
 module.exports = router
