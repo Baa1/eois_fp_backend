@@ -14,34 +14,21 @@ module.exports = {
         allowNull: false,
         unique: true
       },
-      description: {
-        type: Sequelize.TEXT,
+      slogan: {
+        type: Sequelize.STRING,
         allowNull: false
       },
-      creatorId: {
-          type: Sequelize.INTEGER,
-          references: {
-              model: 'User',
-              key: 'id'
-          }
+      logo: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
-      participantId: {
-          type: Sequelize.INTEGER,
-          references: {
-              model: 'User',
-              key: 'id'
-          }
-      },
-      projectId: {
-          type: Sequelize.INTEGER,
-          references: {
-              model: 'Project',
-              key: 'id'
-          }
-      },
-    //photoId: {
-        
-    //}   
+      sessionId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Session',
+          key: 'id'
+        }
+      }
     })
   },
 

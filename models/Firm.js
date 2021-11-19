@@ -11,34 +11,21 @@ module.exports = (sequelize, Sequelize) => {
 			allowNull: false,
 			unique: true
 		},
-		description: {
-			type: Sequelize.TEXT,
+		slogan: {
+			type: Sequelize.STRING,
 			allowNull: false
 		},
-        creatorId: {
+        logo: {
+            type: Sequelize.STRING,
+			allowNull: false
+        },
+        sessionId: {
             type: Sequelize.INTEGER,
             references: {
-                model: 'User',
+                model: 'Session',
                 key: 'id'
             }
-        },
-        participantId: {
-            type: Sequelize.INTEGER,
-            references: {
-                model: 'User',
-                key: 'id'
-            }
-        },
-        projectId: {
-            type: Sequelize.INTEGER,
-            references: {
-                model: 'Project',
-                key: 'id'
-            }
-        },
-        // photoId: {
-            
-        // }   
+        }
 	}, { timestamps: false, freezeTableName: true })
 
     // Firm.associate = models => {
