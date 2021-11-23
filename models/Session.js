@@ -28,12 +28,12 @@ module.exports = (sequelize, Sequelize) => {
 		Session.belongsToMany(models.Project, {
 			as: 'project',
 			through: {
-			  model: models.ProjectSession,
-			  unique: false
+				model: models.ProjectSession,
+				unique: false
 			},
 			foreignKey: 'sessionId',
 			constraints: false
-		  })
+		})
 	}
 
 	return Session
