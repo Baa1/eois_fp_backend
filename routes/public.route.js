@@ -7,4 +7,9 @@ router.post(
     publicController.createEntry
 )
 
+router.get(
+    '/entry/:id',
+    publicController.getEntry
+)
+
 module.exports = router
