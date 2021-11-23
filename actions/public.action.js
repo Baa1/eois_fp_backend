@@ -11,3 +11,8 @@ exports.createEntry = async (res, entryData) => {
         res.result = entry
     })
 }
+
+exports.getEntry = async (res, entryData) => {
+    const entry = await db.Entry.findByPk(entryData)
+    res.result = entry
+}
