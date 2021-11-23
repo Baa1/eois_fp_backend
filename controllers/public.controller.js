@@ -1,7 +1,7 @@
 const { publicAction } = require('../actions')
 const Result = require('../utils/result')
 
-exports.createEntry = (req, res, next) => {
+exports.createEntry = async (req, res, next) => {
     try {
 		let result = new Result()
 		await publicAction.createEntry(result, req.body)
