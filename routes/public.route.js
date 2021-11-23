@@ -3,17 +3,17 @@ const router = express.Router()
 const { publicController } = require('../controllers')
 
 router.post(
-    'entry',
+    '/entry',
     publicController.createEntry
 )
 
 router.get(
-    'entry/:id',
+    '/entry/:id',
     publicController.getEntry
 )
 
 router.get(
-    'sessions',
+    '/sessions',
     publicController.getSessions
 )
 
