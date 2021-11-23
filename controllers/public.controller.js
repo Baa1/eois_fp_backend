@@ -14,7 +14,17 @@ exports.createEntry = async (req, res, next) => {
 exports.getEntry = async (req, res, next) => {
 	try {
 		let result = new Result()
-		await publicAction.getEntrystatus(result, req.params.id)
+		await publicAction.getEntry(result, req.params.id)
+		return res.status(result.status).send(result)
+	} catch (error) {
+		next(error)
+	}
+}
+
+exports.getSessions = async (req, res, next) => {
+	try {
+		let result = new Result()
+		await publicAction.getSessions(result)
 		return res.status(result.status).send(result)
 	} catch (error) {
 		next(error)
