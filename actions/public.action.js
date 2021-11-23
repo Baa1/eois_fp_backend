@@ -16,3 +16,8 @@ exports.getEntry = async (res, entryData) => {
     const entry = await db.Entry.findByPk(entryData)
     res.result = entry
 }
+
+exports.getSessions = async (res) => {
+    const sessions = await db.Session.findAll()
+    res.result = sessions
+}

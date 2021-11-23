@@ -8,8 +8,13 @@ router.post(
 )
 
 router.get(
-    '/entry/:id',
+    'entry/:id',
     publicController.getEntry
+)
+
+router.get(
+    'sessions',
+    publicController.getSessions
 )
 
 module.exports = router
