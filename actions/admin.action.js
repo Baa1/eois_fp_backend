@@ -1,6 +1,7 @@
 const db = require('../models')
 const moment = require('moment')
-const { ConflictError } = require('../utils/errors')
+const { ConflictError, NotFoundError } = require('../utils/errors')
+const { isEmpty } = require('../utils/helpers')
 
 exports.addSession = async (res, sessionData) => {
     await db.transaction(async transaction => {
@@ -40,4 +41,24 @@ exports.addProject = async (res, projectData) => {
 exports.getProject = async (res, projectId) => {
     const project = await db.Project.findByPk(projectId)
     res.result = project
+}
+
+exports.updateSession = async (res, sessionData, sessionId) => {
+    await db.transaction(async transaction => {
+        let session = await db.Session.findByPk(sessionId)
+        if (isEmpty(session)) {
+            throw new NotFoundError('Сессия не найдена')
+        }
+        const { dateStart, dateEnd, place, description } = sessionData
+        if (moment(dateStart) > moment(dateEnd)) {
+            throw new ConflictError('Дата начала сессии не может быть позже даты окончания!')
+        }
+        session = await db.Session.update({
+            dateStart: moment(dateStart).format('DD-MM-YYYY'), 
+            dateEnd: moment(dateEnd).format('DD-MM-YYYY'), 
+            place, 
+            description
+        }, { where: { id: sessionId } },  { transaction })
+        res.result = session
+    })
 }

@@ -55,5 +55,6 @@ db.RefreshToken = require('../models/RefreshToken.js')(sequelize, Sequelize)
 db.UserRole = require('../models/UserRole.js')(sequelize, Sequelize)
 db.Session = require('../models/Session.js')(sequelize, Sequelize)
 db.Project = require('../models/Project.js')(sequelize, Sequelize)
+db.Notification = require('../models/Notification.js')(sequelize, Sequelize)
 
 module.exports = db
