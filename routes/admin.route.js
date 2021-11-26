@@ -33,4 +33,9 @@ router.put(
     adminController.updateEntryStatus
 )
 
+router.get(
+    '/entries',
+    adminController.getEntries
+)
+
 module.exports = router

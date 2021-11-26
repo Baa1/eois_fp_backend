@@ -75,3 +75,8 @@ exports.updateEntryStatus = async (res, status, entryId) => {
         res.result = entry
     })
 }
+
+exports.getEntries = async (res) => {
+    const entries = await db.Entry.findAll()
+    res.result = entries
+}
