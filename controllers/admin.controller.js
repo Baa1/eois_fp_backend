@@ -70,3 +70,13 @@ exports.getEntries = async (req, res, next) => {
 		next(error)
 	}
 }
+
+exports.getDirections = async (req, res, next) => {
+    try {
+		let result = new Result()
+		await adminAction.getDirections(result)
+    	return res.status(result.status).send(result)
+	} catch (error) {
+		next(error)
+	}
+}

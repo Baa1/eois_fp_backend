@@ -38,4 +38,9 @@ router.get(
     adminController.getEntries
 )
 
+router.get(
+    '/directions',
+    adminController.getDirections
+)
+
 module.exports = router

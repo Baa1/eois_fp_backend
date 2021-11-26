@@ -80,3 +80,8 @@ exports.getEntries = async (res) => {
     const entries = await db.Entry.findAll()
     res.result = entries
 }
+
+exports.getDirections = async (res) => {
+    const entries = await db.Direction.findAll()
+    res.result = entries
+}
