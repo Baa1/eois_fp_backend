@@ -28,4 +28,9 @@ router.put(
     adminController.updateSession
 )
 
+router.put(
+    '/entry/:id',
+    adminController.updateEntryStatus
+)
+
 module.exports = router
