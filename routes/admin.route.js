@@ -28,4 +28,9 @@ router.put(
     adminController.updateSession
 )
 
+router.post(
+    '/firm',
+    adminController.addFirm
+)
+
 module.exports = router
