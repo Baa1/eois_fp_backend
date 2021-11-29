@@ -76,3 +76,17 @@ exports.addFirm = async (res, firmData) => {
         res.result = firm
     })
 }
+
+exports.addProjectSession = async (res, ProjectSessionData) => {
+    await db.transaction(async transaction => {
+        const { sessionId, arrProjectId=[] } = ProjectSessionData
+        arrProjectId.forEach(element => {
+            const projectSession = await db.ProjectSession.create({
+                sessionId,
+                element
+            }, { transaction })
+
+            res.result = projectSession
+        });
+    })
+}

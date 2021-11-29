@@ -33,4 +33,9 @@ router.post(
     adminController.addFirm
 )
 
+router.post(
+    '/projectsession',
+    adminController.addProjectSession
+)
+
 module.exports = router

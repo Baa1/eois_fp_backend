@@ -60,3 +60,13 @@ exports.addFirm = async (req, res, next) => {
 		next(error)
 	}
 }
+
+exports.addProjectSession = async (req, res, next) => {
+	try {
+		let result = new Result()
+		await adminAction.addProjectSession(result, req.body)
+		return res.status(result.status).send(result)
+	} catch (error) {
+		next(error)
+	}
+}

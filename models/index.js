@@ -56,6 +56,7 @@ db.UserRole = require('../models/UserRole.js')(sequelize, Sequelize)
 db.Session = require('../models/Session.js')(sequelize, Sequelize)
 db.Project = require('../models/Project.js')(sequelize, Sequelize)
 db.Notification = require('../models/Notification.js')(sequelize, Sequelize)
-db.Firm = require('../models/Firm')(sequelize, Sequelize)
+db.Firm = require('../models/Firm.js')(sequelize, Sequelize)
+db.ProjectSession = require('../models/ProjectSession.js')(sequelize, Sequelize)
 
 module.exports = db
