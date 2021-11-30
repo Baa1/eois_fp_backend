@@ -2,6 +2,7 @@ const db = require('../models')
 const moment = require('moment')
 const { ConflictError, NotFoundError } = require('../utils/errors')
 const { isEmpty } = require('../utils/helpers')
+const { transaction } = require('../models')
 
 exports.addSession = async (res, sessionData) => {
     await db.transaction(async transaction => {
@@ -62,6 +63,32 @@ exports.updateSession = async (res, sessionData, sessionId) => {
         res.result = session
     })
 }
+
+exports.addFirm = async (res, firmData) => {
+    await db.transaction(async transaction => {
+        const { name, slogan, logo} = firmData
+        const firm = await db.Project.create({
+            name,
+            slogan, 
+            logo
+        }, { transaction })
+            
+        res.result = firm
+    })
+}
+
+exports.addProjectSession = async (res, ProjectSessionData) => {
+    await db.transaction(async transaction => {
+        const { sessionId, arrProjectId=[] } = ProjectSessionData
+        arrProjectId.forEach(element => {
+            const projectSession = await db.ProjectSession.create({
+                sessionId,
+                element
+            }, { transaction })
+
+            res.result = projectSession
+        });
+    })
 
 exports.updateEntryStatus = async (res, status, entryId) => {
     await db.transaction(async transaction => {

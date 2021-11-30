@@ -28,6 +28,16 @@ router.put(
     adminController.updateSession
 )
 
+router.post(
+    '/firm',
+    adminController.addFirm
+)
+
+router.post(
+    '/projectsession',
+    adminController.addProjectSession
+)
+
 router.put(
     '/entry/:id',
     adminController.updateEntryStatus
