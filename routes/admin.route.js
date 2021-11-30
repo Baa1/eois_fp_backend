@@ -38,4 +38,19 @@ router.post(
     adminController.addProjectSession
 )
 
+router.put(
+    '/entry/:id',
+    adminController.updateEntryStatus
+)
+
+router.get(
+    '/entries',
+    adminController.getEntries
+)
+
+router.get(
+    '/directions',
+    adminController.getDirections
+)
+
 module.exports = router
