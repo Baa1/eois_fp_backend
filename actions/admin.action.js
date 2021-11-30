@@ -62,3 +62,26 @@ exports.updateSession = async (res, sessionData, sessionId) => {
         res.result = session
     })
 }
+
+exports.updateEntryStatus = async (res, status, entryId) => {
+    await db.transaction(async transaction => {
+        let entry = await db.Entry.findByPk(entryId)
+        if (isEmpty(entry)) {
+            throw new NotFoundError('Заявка не найдена')
+        }
+        await entry.update({
+            status
+        }, { transaction })
+        res.result = entry
+    })
+}
+
+exports.getEntries = async (res) => {
+    const entries = await db.Entry.findAll()
+    res.result = entries
+}
+
+exports.getDirections = async (res) => {
+    const entries = await db.Direction.findAll()
+    res.result = entries
+}
