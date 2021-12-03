@@ -28,6 +28,12 @@ router.put(
     adminController.updateSession
 )
 
+router.put(
+    '/firm/:id',
+    adminController.updateFirm
+)
+
+
 router.post(
     '/firm',
     adminController.addFirm

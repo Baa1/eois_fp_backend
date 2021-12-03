@@ -77,6 +77,22 @@ exports.addFirm = async (res, firmData) => {
     })
 }
 
+exports.updateFirm = async (res, firmData, firmId) => {
+    await db.transaction(async transaction => {
+        let firm = await db.Firm.findByPk(firmId)
+        // if (isEmpty(firm)) {
+        //     throw new NotFoundError('Фирма не найдена')
+        // }
+        const { name, slogan, logo} = firmData
+        session = await db.Session.update({
+            name, 
+            slogan, 
+            logo
+        }, { where: { id: firmId } },  { transaction })
+        res.result = firm
+    })
+}
+
 exports.addProjectSession = async (res, ProjectSessionData) => {
     await db.transaction(async transaction => {
         const { sessionId, arrProjectId=[] } = ProjectSessionData
@@ -89,6 +105,7 @@ exports.addProjectSession = async (res, ProjectSessionData) => {
             res.result = projectSession
         });
     })
+}
 
 exports.updateEntryStatus = async (res, status, entryId) => {
     await db.transaction(async transaction => {
