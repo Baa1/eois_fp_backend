@@ -26,7 +26,7 @@ module.exports = (sequelize, Sequelize) => {
 
 	Session.associate = models => {
 		Session.belongsToMany(models.Project, {
-			as: 'project',
+			as: 'projects',
 			through: {
 				model: models.ProjectSession,
 				unique: false
