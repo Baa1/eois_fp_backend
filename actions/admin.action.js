@@ -44,6 +44,23 @@ exports.getProject = async (res, projectId) => {
     res.result = project
 }
 
+exports.updateProject = async (res, projectData, projectId) => {
+    await db.transaction(async transaction => {
+        let project = await db.Project.findByPk(projectId)
+        if (isEmpty(project)) {
+            throw new NotFoundError('Проект не найдена')
+        }
+        const { name, description, status, creatorId } = projectData
+        project = await db.Project.update({
+            name, 
+            description, 
+            status, 
+            creatorId
+        }, { where: { id: projectId } },  { transaction })
+        res.result = session
+    })
+}
+
 exports.updateSession = async (res, sessionData, sessionId) => {
     await db.transaction(async transaction => {
         let session = await db.Session.findByPk(sessionId)

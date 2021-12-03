@@ -24,6 +24,11 @@ router.get(
 )
 
 router.put(
+    '/project/:id',
+    adminController.updateProject
+)
+
+router.put(
     '/session/:id',
     adminController.updateSession
 )
@@ -32,7 +37,6 @@ router.put(
     '/firm/:id',
     adminController.updateFirm
 )
-
 
 router.post(
     '/firm',
