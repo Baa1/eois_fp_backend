@@ -25,3 +25,9 @@ exports.ROLES = new Enum({
     Curator: 'curator',
     Participant: 'participant'
 })
+
+exports.ENTRY_STATUSES = new Enum({
+    New: 'new',
+    Accepted: 'accepted',
+    Rejected: 'rejected'
+})

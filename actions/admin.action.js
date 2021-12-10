@@ -2,7 +2,8 @@ const db = require('../models')
 const moment = require('moment')
 const { ConflictError, NotFoundError } = require('../utils/errors')
 const { isEmpty } = require('../utils/helpers')
-const { transaction } = require('../models')
+const { ENTRY_STATUSES } = require('../utils/enums')
+const { sendEmail } = require('../services/emailService')
 
 exports.addSession = async (res, sessionData) => {
     await db.transaction(async transaction => {
@@ -80,7 +81,7 @@ exports.addFirm = async (res, firmData) => {
 exports.addProjectSession = async (res, ProjectSessionData) => {
     await db.transaction(async transaction => {
         const { sessionId, arrProjectId=[] } = ProjectSessionData
-        arrProjectId.forEach(element => {
+        arrProjectId.forEach(async element => {
             const projectSession = await db.ProjectSession.create({
                 sessionId,
                 element
@@ -89,12 +90,20 @@ exports.addProjectSession = async (res, ProjectSessionData) => {
             res.result = projectSession
         });
     })
+}
 
 exports.updateEntryStatus = async (res, status, entryId) => {
     await db.transaction(async transaction => {
         let entry = await db.Entry.findByPk(entryId)
         if (isEmpty(entry)) {
             throw new NotFoundError('Заявка не найдена')
+        }
+        if (status === ENTRY_STATUSES.Accepted) {
+
+        } else if (status === ENTRY_STATUSES.Rejected) {
+            sendEmail(entry.parentEmail, 'Отклонение заявки', 'Ваша заявка была отклонена администратором') 
+        } else {
+            throw new ConflictError('Неверный статус заявки')
         }
         await entry.update({
             status
@@ -109,6 +118,6 @@ exports.getEntries = async (res) => {
 }
 
 exports.getDirections = async (res) => {
-    const entries = await db.Direction.findAll()
-    res.result = entries
+    const directions = await db.Direction.findAll()
+    res.result = directions
 }
