@@ -84,5 +84,12 @@ module.exports = (sequelize, Sequelize) => {
 		},
     }, { timestamps: true, freezeTableName: true })
 
+    Entry.associate = models => {
+        Entry.belongsTo(models.Session, {
+            foreignKey: 'sessionId',
+            as: 'session'
+        })
+    }
+
     return Entry
 }

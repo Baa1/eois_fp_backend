@@ -36,5 +36,19 @@ module.exports = (sequelize, Sequelize) => {
 		})
 	}
 
+	Session.associate = models => {
+		Session.belongsToMany(models.User, {
+			as: 'users',
+			through: {
+				model: models.UserSession,
+				unique: false
+			},
+			foreignKey: 'sessionId',
+			constraints: false
+		})
+
+		Session.hasMany(models.Entry, { foreignKey: 'sessionId' })
+	}
+
 	return Session
 }
