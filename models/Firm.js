@@ -28,9 +28,17 @@ module.exports = (sequelize, Sequelize) => {
         }
 	}, { timestamps: false, freezeTableName: true })
 
-    // Firm.associate = models => {
-		
-	// }
+    Firm.associate = models => {
+		Firm.belongsToMany(models.Project, {
+			as: 'projects',
+			through: {
+				model: models.FirmProject,
+				unique: false
+			},
+			foreignKey: 'firmId',
+			constraints: false
+		})
+	}
 
 	return Firm
 }
