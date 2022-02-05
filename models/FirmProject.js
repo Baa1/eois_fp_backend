@@ -1,26 +1,26 @@
 module.exports = (sequelize, Sequelize) => {
-    const UserSession = sequelize.define('UserSession', {
-        id: {
+	const FirmProject = sequelize.define('FirmProject', {
+		id: {
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
             type: Sequelize.INTEGER
         },
-        userId: {
+        firmId: {
             type: Sequelize.INTEGER,
             references: {
-              model: 'User',
-              key: 'id'
+                model: 'Firm',
+                key: 'id'
             }
         },
-        sessionId: {
+        projectId: {
             type: Sequelize.INTEGER,
             references: {
-              model: 'Session',
-              key: 'id'
+                model: 'Project',
+                key: 'id'
             }
-        }        
-    }, { timestamps: false, freezeTableName: true })
-  
-    return UserSession
+        },
+	}, { timestamps: false, freezeTableName: true })
+
+	return FirmProject
 }

@@ -28,6 +28,16 @@ module.exports = (sequelize, Sequelize) => {
 			constraints: false
 		})
 
+		User.belongsToMany(models.Session, {
+			as: 'sessions',
+			through: {
+				model: models.UserSession,
+				unique: false
+			},
+			foreignKey: 'userId',
+			constraints: false
+		})
+
 		User.hasMany(models.RefreshToken, { foreignKey: 'userId' })
 	}
 

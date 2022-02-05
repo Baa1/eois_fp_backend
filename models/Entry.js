@@ -1,3 +1,4 @@
+const moment = require('moment')
 module.exports = (sequelize, Sequelize) => {
     const Entry = sequelize.define('Entry', {
         id: {
@@ -31,7 +32,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         participantBirthday: {
             type: Sequelize.DATEONLY,
-            allowNull: false
+            allowNull: false,
+            get() {
+				let date = this.getDataValue("participantBirthday")
+				return date ? moment(date, "YYYY-MM-DD").format("DD.MM.YYYY") : null
+			}
         },
         participantGender: {
             type: Sequelize.STRING,
@@ -42,10 +47,6 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         parentSurname: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
-        parentPatronymic: {
             type: Sequelize.STRING,
             allowNull: false
         },
@@ -82,6 +83,13 @@ module.exports = (sequelize, Sequelize) => {
 			}
 		},
     }, { timestamps: true, freezeTableName: true })
+
+    Entry.associate = models => {
+        Entry.belongsTo(models.Session, {
+            foreignKey: 'sessionId',
+            as: 'session'
+        })
+    }
 
     return Entry
 }

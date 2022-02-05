@@ -28,4 +28,29 @@ router.put(
     adminController.updateSession
 )
 
+router.post(
+    '/firm',
+    adminController.addFirm
+)
+
+router.post(
+    '/projectsession',
+    adminController.addProjectSession
+)
+
+router.put(
+    '/entry/:id',
+    adminController.updateEntryStatus
+)
+
+router.get(
+    '/entries',
+    adminController.getEntries
+)
+
+router.get(
+    '/directions',
+    adminController.getDirections
+)
+
 module.exports = router

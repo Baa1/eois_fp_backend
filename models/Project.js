@@ -38,7 +38,7 @@ module.exports = (sequelize, Sequelize) => {
 
     Project.associate = models => {
 		Project.belongsToMany(models.Session, {
-			as: 'session',
+			as: 'sessions',
 			through: {
 				model: models.ProjectSession,
 				unique: false
@@ -46,6 +46,18 @@ module.exports = (sequelize, Sequelize) => {
 			foreignKey: 'projectId',
 			constraints: false
 		})
+
+        Project.associate = models => {
+            Project.belongsToMany(models.Firm, {
+                as: 'firms',
+                through: {
+                    model: models.FirmProject,
+                    unique: false
+                },
+                foreignKey: 'projectId',
+                constraints: false
+            })
+        }
 	}
 
 	return Project
