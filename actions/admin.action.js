@@ -160,3 +160,7 @@ exports.getDirections = async (res) => {
     const directions = await db.Direction.findAll()
     res.result = directions
 }
+
+exports.addDirection = async () => {
+    
+}
