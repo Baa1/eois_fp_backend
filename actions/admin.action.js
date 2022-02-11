@@ -106,17 +106,14 @@ exports.updateEntryStatus = async (res, status, entryId) => {
             if (entry.status === ENTRY_STATUSES.Rejected) {
                 throw new ConflictError('Нельзя принять отклоненную заявку')
             }
-            await db.UserSession.create({
-                userId: user.id,
-                sessionId: entry.sessionId
-            }, { transaction })
             const participantRole = await db.Role.findOne({
                 where: {
                     name: ROLES.Participant
                 }
             })
-            await db.UserRole.create({
+            await db.UserSession.create({
                 userId: user.id,
+                sessionId: entry.sessionId,
                 roleId: participantRole.id
             }, { transaction })
             sendEmail(entry.parentEmail, 'Заявка одобрена', 'Ваша заявка была одобрена администратором') 

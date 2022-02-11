@@ -19,7 +19,14 @@ module.exports = (sequelize, Sequelize) => {
               model: 'Session',
               key: 'id'
             }
-        }        
+        },
+        roleId: {
+            type: Sequelize.INTEGER,
+            references: {
+              model: 'Role',
+              key: 'id'
+            }
+        }          
     }, { timestamps: false, freezeTableName: true })
   
     return UserSession

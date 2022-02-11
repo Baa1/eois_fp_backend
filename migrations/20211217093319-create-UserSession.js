@@ -22,7 +22,14 @@ module.exports = {
           model: 'Session',
           key: 'id'
         }
-      }
+      },
+      roleId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Role',
+          key: 'id'
+        }
+    }  
     })
   },
 
