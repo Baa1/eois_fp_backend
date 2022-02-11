@@ -106,19 +106,6 @@ exports.updateEntryStatus = async (res, status, entryId) => {
             if (entry.status === ENTRY_STATUSES.Rejected) {
                 throw new ConflictError('Нельзя принять отклоненную заявку')
             }
-            let user = await db.User.findOne({
-                where: {
-                    email: entry.participantEmail
-                }
-            })
-            if (isEmpty(user)) {
-                const password = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
-                user = await db.User.create({
-                    email: entry.participantEmail,
-                    password: bcrypt.hashSync(password, 8)
-                }, { transaction })
-                sendEmail(entry.participantEmail, 'Создание аккаунта', `На вашу почту был зарегистрирован аккаунт. Пароль: ${password}`)
-            }
             await db.UserSession.create({
                 userId: user.id,
                 sessionId: entry.sessionId

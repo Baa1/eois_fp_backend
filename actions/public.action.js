@@ -7,6 +7,20 @@ exports.createEntry = async (res, entryData) => {
             ...entryData,
             status: ENTRY_STATUSES.New
         }, { transaction })
+        let user = await db.User.findOne({
+            where: {
+                email: entryData.participantEmail
+            }
+        })
+        if (isEmpty(user)) {
+            const password = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
+            user = await db.User.create({
+                email: entryData.participantEmail,
+                password: bcrypt.hashSync(password, 8)
+            }, { transaction })
+            sendEmail(entryData.participantEmail, 'Создание аккаунта', `На вашу почту был зарегистрирован аккаунт. Пароль: ${password}`)
+        }
+        sendEmail(entryData.participantEmail, 'Регистрация заявки', `Ваша заявка успешно зарегистрирована. Для проверки статуса заявки войдите в систему под своим аккаунтом.`)
         res.result = entry
     })
 }
