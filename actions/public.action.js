@@ -1,5 +1,7 @@
 const db = require('../models')
 const { ENTRY_STATUSES } = require('../utils/enums')
+const { isEmpty } = require('../utils/helpers')
+const { sendEmail } = require('../services/emailService')
 
 exports.createEntry = async (res, entryData) => {
     await db.transaction(async transaction => {
