@@ -26,10 +26,6 @@ exports.signUp = async (res, userData) => {
 				name: ROLES.Guest
 			}
 		})
-		await db.UserRole.create({
-			userId: user.id,
-			roleId: guestRole.id
-		}, { transaction })
 		res.result = {
       userId: user.id,
       email: user.email,

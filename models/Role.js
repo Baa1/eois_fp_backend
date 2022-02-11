@@ -14,15 +14,7 @@ module.exports = (sequelize, Sequelize) => {
     }, { timestamps: false, freezeTableName: true })
 
     Role.associate = models => {  
-        Role.belongsToMany(models.User, {
-          as: 'users',
-          through: {
-            model: models.UserRole,
-            unique: false
-          },
-          foreignKey: 'roleId',
-          constraints: false
-        })
+        
     }
 
     return Role

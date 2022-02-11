@@ -111,11 +111,6 @@ exports.updateEntryStatus = async (res, status, entryId) => {
                     name: ROLES.Participant
                 }
             })
-            await db.UserSession.create({
-                userId: user.id,
-                sessionId: entry.sessionId,
-                roleId: participantRole.id
-            }, { transaction })
             sendEmail(entry.parentEmail, 'Заявка одобрена', 'Ваша заявка была одобрена администратором') 
         } else if (status === ENTRY_STATUSES.Rejected) {
             if (entry.status === ENTRY_STATUSES.Rejected) {
