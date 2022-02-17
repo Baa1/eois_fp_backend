@@ -21,6 +21,10 @@ module.exports = (sequelize, Sequelize) => {
         description: {
             type: Sequelize.TEXT,
             allowNull: true
+        },
+		fullDescription: {
+            type: Sequelize.TEXT,
+            allowNull: true
         }
 	}, { timestamps: false, freezeTableName: true })
 
