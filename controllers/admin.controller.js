@@ -101,10 +101,10 @@ exports.getDirections = async (req, res, next) => {
 	}
 }
 
-exports.gerProjects = async (req, res, next) => {
+exports.getProjects = async (req, res, next) => {
     try {
 		let result = new Result()
-		await adminAction.gerProjects(result)
+		await adminAction.getProjects(result)
     return res.status(result.status).send(result)
 	} catch (error) {
 		next(error)

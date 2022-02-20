@@ -55,7 +55,7 @@ router.get(
 
 router.get(
     '/projects',
-    adminController.gerProjects
+    adminController.getProjects
 )
 
 module.exports = router
