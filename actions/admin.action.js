@@ -143,3 +143,8 @@ exports.getDirections = async (res) => {
 exports.addDirection = async () => {
     
 }
+
+exports.getProjects = async (res) => {
+    const projects = await db.Project.findAll()
+    res.result = projects
+}
