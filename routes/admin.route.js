@@ -53,4 +53,9 @@ router.get(
     adminController.getDirections
 )
 
+router.get(
+    '/projects',
+    adminController.gerProjects
+)
+
 module.exports = router
