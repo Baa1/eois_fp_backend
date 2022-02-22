@@ -2,17 +2,15 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.addColumn(
-      'Todo',
-      'completed',
-     Sequelize.BOOLEAN
-    );
+    return queryInterface.addColumn('Session', 'fullDescription',
+        {
+          type: Sequelize.TEXT,
+          allowNull: true
+        }
+    )
   },
 
-  down: async (queryInterface, Sequelize) => {
-    return queryInterface.removeColumn(
-      'Todo',
-      'completed'
-    );
+  down: async (queryInterface) => {
+    return queryInterface.removeColumn('Session', 'fullDescription')
   }
 };
