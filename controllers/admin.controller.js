@@ -110,3 +110,13 @@ exports.getProjects = async (req, res, next) => {
 		next(error)
 	}
 }
+
+exports.getSessions = async (req, res, next) => {
+    try {
+		let result = new Result()
+		await adminAction.getSessions(result)
+    	return res.status(result.status).send(result)
+	} catch (error) {
+		next(error)
+	}
+}

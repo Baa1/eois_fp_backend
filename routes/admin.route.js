@@ -58,4 +58,9 @@ router.get(
     adminController.getProjects
 )
 
+router.get(
+    '/sessions',
+    adminController.getSessions
+)
+
 module.exports = router
