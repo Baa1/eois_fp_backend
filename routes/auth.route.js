@@ -19,7 +19,7 @@ router.post(
 router.get(
     '/test',
     (req, res) => {
-        sendEmail('baa1_666@mail.ru', 'hi', req.query.text)
+        sendEmail('kvezee01@mail.ru', 'hi', req.query.text)
         res.send(req.query)
     }
 )

@@ -8,15 +8,16 @@ const { sendEmail } = require('../services/emailService')
 
 exports.addSession = async (res, sessionData) => {
     await db.transaction(async transaction => {
-        const { dateStart, dateEnd, place, description } = sessionData
+        const { dateStart, dateEnd, place, description, fullDescription } = sessionData
         if (moment(dateStart) > moment(dateEnd)) {
             throw new ConflictError('Дата начала сессии не может быть позже даты окончания!')
         }
         const session = await db.Session.create({
-            dateStart: moment(dateStart).format('DD-MM-YYYY'), 
-            dateEnd: moment(dateEnd).format('DD-MM-YYYY'), 
+            dateStart, 
+            dateEnd, 
             place, 
-            description
+            description,
+            fullDescription
         }, { transaction })
         res.result = session
     })
@@ -147,4 +148,9 @@ exports.addDirection = async () => {
 exports.getProjects = async (res) => {
     const projects = await db.Project.findAll()
     res.result = projects
+}
+
+exports.getSessions = async (res) => {
+    const sessions = await db.Session.findAll()
+    res.result = sessions
 }
